@@ -56,3 +56,11 @@ last_12_months_geometry = alt.Chart(last_12_months_df).mark_bar().encode(
 )
 
 st.altair_chart(last_12_months_geometry, use_container_width=True)
+
+hide_streamlit_style = """
+            <style>
+            [data-testid="stToolbar"] {visibility: hidden !important;}
+            footer {visibility: hidden !important;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
