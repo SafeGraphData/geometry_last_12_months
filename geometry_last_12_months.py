@@ -29,16 +29,17 @@ last_12_months_df = global_places_df[
     (global_places_df["Release month"] >= start_date_str) & (global_places_df["Release month"] <= datetime.now()) &
     (global_places_df["Country"] != "Grand Total")
 ]
-last_12_months_df["Release month"] = last_12_months_df["Release month"].dt.strftime("%Y-%m")
+last_12_months_df["Release month"] = pd.to_datetime(last_12_months_df["Release month"])+ pd.DateOffset(1)
+last_12_months_df["Release month"] = last_12_months_df["Release month"].dt.strftime('%Y-%m-%dT%H:%M:%SZ')
 last_12_months_df['POI with polygons'] = pd.to_numeric(last_12_months_df['POI with polygons'])
 
 # st.dataframe(last_12_months_df)
 
 last_12_months_geometry = alt.Chart(last_12_months_df).mark_bar().encode(
-    x='Release month',
+    x=alt.X('Release month', timeUnit='yearmonth'),
     y='POI with polygons',
     color='Country',
-    tooltip=[alt.Tooltip('Release month'),
+    tooltip=[alt.Tooltip('Release month', timeUnit='yearmonth', title='Release month'),
              alt.Tooltip('Country'),
              alt.Tooltip('POI with polygons', format=',')]
 ).properties(
