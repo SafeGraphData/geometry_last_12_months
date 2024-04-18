@@ -38,7 +38,7 @@ last_12_months_df['POI with polygons'] = pd.to_numeric(last_12_months_df['POI wi
 last_12_months_geometry = alt.Chart(last_12_months_df).mark_bar().encode(
     x=alt.X('Release month', timeUnit='yearmonth'),
     y='POI with polygons',
-    color='Country',
+    color=alt.Color('Country', scale=alt.Scale(scheme='redyellowblue')),
     tooltip=[alt.Tooltip('Release month', timeUnit='yearmonth', title='Release month'),
              alt.Tooltip('Country'),
              alt.Tooltip('POI with polygons', format=',')]
