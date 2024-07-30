@@ -13,7 +13,7 @@ st.set_page_config(
 
 #### Last 12 Months Geometry ####
 
-global_places_df = read_from_gsheets("Global Places")
+global_places_df = (read_from_gsheets("Global Places").query('Country  != "Excluding US"').reset_index(drop=True))
 global_places_df = global_places_df[["Release month", "Country", "POI with polygons"]]
 
 for i, value in enumerate(global_places_df['Release month']):
